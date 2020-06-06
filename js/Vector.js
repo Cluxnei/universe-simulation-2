@@ -1,7 +1,6 @@
 export default class Vector {
     /**
      * Construtor do Vetor
-     *
      * @param {number} x X do vetor
      * @param {number} y Y do vetor
      */
@@ -11,10 +10,8 @@ export default class Vector {
     }
     /**
      * Adição de vetores
-     *
      * @param {Vector} vector Vetor a ser adicionado
-     *
-     * @returns {this} Retorna o objeto
+     * @returns {Vector} Retorna o objeto
      */
     add({x, y}) {
         this.x += x;
@@ -23,10 +20,8 @@ export default class Vector {
     }
     /**
      * Subtração de vetores
-     *
      * @param {Vector} vector Vetor a ser subtraido
-     *
-     * @returns {this} Retorna o objeto
+     * @returns {Vector} Retorna o objeto
      */
     sub({x, y}) {
         this.x -= x;
@@ -36,11 +31,9 @@ export default class Vector {
     /**
      * Multiplicação de vetores
      * Escala o Vetor
-     *
      * @param {number} scaleFactorX Fator de multiplicação X
      * @param {number|undefined} scaleFactorY Fator de multiplicação Y
-     *
-     * @returns {Vector} Retorna o objeto
+     * @returns {Vector|*} vector Retorna o objeto
      */
     scale(scaleFactorX, scaleFactorY = undefined) {
         this.x *= scaleFactorX;
@@ -49,7 +42,6 @@ export default class Vector {
     }
     /**
      * Magnitude do vetor (tamanho)
-     *
      * @returns {number} Raiz quadrada da soma dos catetos elevados ao quadrado
      */
     magnitude() {
@@ -58,7 +50,6 @@ export default class Vector {
     /**
      * Normaliza o Vetor
      * Deixa do menor tamanho mantendo a proporção
-     *
      * @returns {Vector} Retorna o objeto
      */
     normalize() {
@@ -66,5 +57,13 @@ export default class Vector {
         this.x /= magnitude;
         this.y /= magnitude;
         return this;
+    }
+
+    /**
+     * Copia o vetor
+     * @returns {Vector}
+     */
+    copy() {
+        return new Vector(this.x, this.y);
     }
 };
