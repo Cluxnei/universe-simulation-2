@@ -1,4 +1,5 @@
 import Vector from './Vector.js';
+import Composition from './Composition.js';
 import {newtonGravitationLaw} from './Physics.js';
 
 export default class Planet {
@@ -7,19 +8,18 @@ export default class Planet {
      * @param position
      * @param velocity
      * @param radius
-     * @param density
      */
-    constructor(position = new Vector, velocity = new Vector, radius = 1, density = 1) {
+    constructor(position = new Vector, velocity = new Vector, radius = 1) {
         // Propriedades vetoriais
         this.position = position;
         this.velocity = velocity;
         this.acceleration = new Vector;
         this.forces = new Vector;
         // Propriedades escalares
-        this.radius = radius;
-        this.density = density;
-        this.volume = 4 / 3 * Math.PI * this.radius ** 3;
-        this.mass = this.density * this.volume;
+        this.composition = new Composition;
+        this.radius = this.composition.radius;
+        this.mass = this.composition.mass;
+        this.color = this.composition.color;
         this.simulation = null;
     }
 
@@ -28,6 +28,7 @@ export default class Planet {
      * @param {number} timeDifference
      */
     update(timeDifference) {
+        this.composition.update();
         this.forces = this.computeTotalForces();
         this.acceleration = this.forces.copy().scale(1 / this.mass);
         this.velocity.add(this.acceleration.copy().scale(timeDifference));
@@ -65,8 +66,8 @@ export default class Planet {
         const {x, y} = this.position;
         ctx.beginPath();
         ctx.arc(x, y, this.radius, 0, 360);
-        // ctx.strokeStyle = '#f00';
-        ctx.fillStyle = '#f00'; // this.color()
+        // ctx.strokeStyle = this.computeColor();
+        ctx.fillStyle = this.color;
         // ctx.stroke()
         ctx.fill();
     }

@@ -17,6 +17,7 @@ export default class Simulation {
         }
         this.planets.forEach((planet) => {
             planet.simulation = this;
+            console.log(planet);
         });
     }
 
@@ -44,7 +45,7 @@ export default class Simulation {
                 radius: randomNumberBetween(radiusRange.min, radiusRange.max),
                 density: randomNumberBetween(densityRange.min, densityRange.max)
             };
-            planets.push(new Planet(props.position, props.velocity, props.radius, props.density));
+            planets.push(new Planet(props.position, props.velocity, props.radius));
         }
         return planets;
     }
