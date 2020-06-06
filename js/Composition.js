@@ -29,6 +29,7 @@ export default class Composition {
         this.color = this.computeColor();
         this.mass = this.computeMass();
         this.radius = this.computeRadius();
+        this.quantity = this.computeQuantity();
     }
 
     /**
@@ -36,9 +37,17 @@ export default class Composition {
      * @returns {number}
      */
     computeRadius() {
-        const sumRadius = (radius, {quantity, atom: {radius: r}}) => radius + r * quantity;
+        const sumRadius = (radius, {quantity, atom: {radius: r}}) => radius + (r * quantity);
+        return this.elements.reduce(sumRadius, 0);
+    }
+
+    /**
+     * Calcula o quantidade total de elementos
+     * @returns {*}
+     */
+    computeQuantity() {
         const sumQuantity = (quantity, {quantity: q}) => quantity + q;
-        return this.elements.reduce(sumRadius, 0) / this.elements.reduce(sumQuantity, 0);
+        return this.elements.reduce(sumQuantity, 0);
     }
 
     /**
@@ -66,11 +75,9 @@ export default class Composition {
      */
     computeColor() {
         const firstColor = this.elements[0].atom.color;
-        const totalQuantity = this.elements.reduce((sum, element) => sum + element.quantity, 0);
-        const mixColors = (color, {quantity, atom: {color: c}}) => {
-            const percent = quantity / totalQuantity;
-            return colorMixer(color, c, 1 - percent);
-        };
+        const mixColors = (color, {quantity, atom: {color: c}}) => (
+            colorMixer(color, c, 1 - quantity / this.quantity)
+        );
         return this.elements.reduce(mixColors, firstColor);
     }
 
@@ -208,5 +215,11 @@ export default class Composition {
             new Atom('Earthium', '#1177f5', 124, 'Ea', 600, 50),
             new Atom('Unbipentium', '#000000', 125, 'Ubp', 1000, 10)
         ];
+    }
+    toString() {
+        return `
+            Elements quantity: ${this.quantity}
+            Elements: ${this.elements.reduce((acc, element) => acc + element, '')}
+        `;
     }
 };

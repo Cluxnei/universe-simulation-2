@@ -45,7 +45,7 @@ export default class Vector {
      * @returns {number} Raiz quadrada da soma dos catetos elevados ao quadrado
      */
     magnitude() {
-        return Math.sqrt(this.x ** 2 + this.y ** 2);
+        return Math.hypot(this.x, this.y);
     }
     /**
      * Normaliza o Vetor
@@ -65,5 +65,13 @@ export default class Vector {
      */
     copy() {
         return new Vector(this.x, this.y);
+    }
+
+    /**
+     * Transforma o objeto em string
+     * @returns {string}
+     */
+    toString() {
+        return `[${this.x}, ${this.y}]`;
     }
 };

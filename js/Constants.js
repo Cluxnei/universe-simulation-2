@@ -12,14 +12,14 @@ const createRange = (min, max) => ({min, max});
  */
 export const canvas = {
     backgroundColor: '#000',
-    initialZoom: 5,
+    initialZoom: 0.7,
 };
 /**
  * Diferença de tempo, pra compensar a velocidade de calculo
  * Quanto mais próximo de 1 mais rápido a simulação roda
  * @type {number}
  */
-export const timeDifference = 0.01;
+export const timeDifference = 1;
 /**
  * Valor da constante gravitacional
  * @type {number}
@@ -30,15 +30,13 @@ export const gravitationConstant = 6.67e-11 * 10e10;
  * @type {{densityRange: {min: number, max: number}, radiusRange: {min: number, max: number}, planetsNumber: number, positionRange: {x: {min: number, max: number}, y: {min: number, max: number}}, velocityRange: {x: {min: number, max: number}, y: {min: number, max: number}}}}
  */
 export const ranges = {
-    planetsNumber: 10,
+    planetsNumber: 5,
     positionRange: {
-        x: createRange(-10, 40),
-        y: createRange(-10, 40),
+        x: createRange(-500, 500),
+        y: createRange(-500, 500),
     },
     velocityRange: {
-        x: createRange(-0, 0),
-        y: createRange(-0, 0),
+        x: createRange(0, 0),
+        y: createRange(0, 0),
     },
-    radiusRange: createRange(1, 5),
-    densityRange: createRange(1, 10),
 };

@@ -3,3 +3,85 @@
     padding: 0;
     overflow: hidden;
 }
+
+body {
+    background-color: black;
+    font-family: 'Fira Code', monospace;
+}
+
+.swal-modal {
+    background-color: black;
+    border: 3px solid white;
+    width: 55%;
+}
+.swal-title {
+    color: white;
+}
+.swal-text {
+    color: white;
+}
+.swal-footer {
+    background-color: black;
+    border-top: 1px solid #E9EEF1;
+    overflow: hidden;
+}
+.swal-button {
+    background-color: black;
+    border: 1px solid white;
+    color: white;
+}
+
+#pause-button {
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 15px 20px;
+    background-color: white;
+}
+#pause-button i {
+    color: black;
+}
+
+.main {
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+.title {
+    color: white;
+    font-size: 4rem;
+    font-weight: bold;
+}
+.choose-mode {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 0.2;
+    align-items: center;
+}
+.choose-mode h3 {
+    color: white;
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.choose-mode button {
+    font-size: 1.4rem;
+    width: 100%;
+    background-color: white;
+    color: black;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    transition: all 500ms ease-in-out;
+    font-family: 'Fira Code', monospace;
+}
+
+.choose-mode button:hover {
+    transform: scale(1.05);
+    padding: 15px 5px;
+}

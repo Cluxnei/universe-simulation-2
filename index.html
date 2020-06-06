@@ -4,10 +4,22 @@
     <title>Universe Simulation</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" defer></script>
     <script src="js/Main.js" defer type="module"></script>
 </head>
 <body>
-    <canvas id="canvas"></canvas>
+    <button id="pause-button" style="display: none;"><i class="fa fa-2x fa-pause"></i></button>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <div class="main">
+        <h2 class="title">Universe simulation</h2>
+        <div class="choose-mode">
+            <h3>Choose simulation mode</h3>
+            <button id="real-time-mode">Live - Simulation is computed and rendered in real-time</button>
+            <button id="pre-computed-mode">Pre-computed - Simulation is calculated for a while and after shown</button>
+        </div>
+    </div>
 </body>
 </html>

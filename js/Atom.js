@@ -7,4 +7,7 @@ export default class Atom {
         this.relativeMass = relativeMass;
         this.radius = radius;
     }
+    toString() {
+        return `${this.name} (${this.symbol})`;
+    }
 }

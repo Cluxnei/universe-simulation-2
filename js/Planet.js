@@ -29,6 +29,9 @@ export default class Planet {
      */
     update(timeDifference) {
         this.composition.update();
+        this.radius = this.composition.radius;
+        this.mass = this.composition.mass;
+        this.color = this.composition.color;
         this.forces = this.computeTotalForces();
         this.acceleration = this.forces.copy().scale(1 / this.mass);
         this.velocity.add(this.acceleration.copy().scale(timeDifference));
@@ -66,9 +69,28 @@ export default class Planet {
         const {x, y} = this.position;
         ctx.beginPath();
         ctx.arc(x, y, this.radius, 0, 360);
-        // ctx.strokeStyle = this.computeColor();
         ctx.fillStyle = this.color;
-        // ctx.stroke()
         ctx.fill();
+    }
+    renderInformation() {
+        if (!swal.getState().isOpen) {
+            swal({
+                title: 'Planet Information',
+                text: this.toString(),
+                width: '80%',
+            });
+        }
+    }
+    toString() {
+        return `
+            Position: ${this.position},
+            Velocity: ${this.velocity},
+            Acceleration: ${this.acceleration}
+            Resulting Force: ${this.forces}
+            Composition: ${this.composition}
+            Radius: ${this.composition.radius}
+            Mass: ${this.composition.mass}
+            Color: ${this.composition.color}
+        `;
     }
 }

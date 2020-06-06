@@ -3,18 +3,21 @@ import Planet from './Planet.js';
 import {ranges} from './Constants.js';
 import {randomNumberBetween} from './Physics.js';
 
-const {planetsNumber, positionRange, velocityRange, radiusRange, densityRange} = ranges;
+const {planetsNumber, positionRange, velocityRange} = ranges;
 
 export default class Simulation {
     /**
      * Construtor da simulação
      * @param {array} planets Planetas iniciais
+     * @param {boolean} realTime Modo realtime
      */
-    constructor(planets = []) {
+    constructor(planets = [], realTime = true) {
         this.planets = planets;
         if (this.planets.length === 0) {
-            this.planets = this.getRandomPlanets(planetsNumber, positionRange, velocityRange, radiusRange, densityRange);
+            this.planets = this.getRandomPlanets(planetsNumber, positionRange, velocityRange);
         }
+        this.paused = false;
+        this.information = null;
         this.planets.forEach((planet) => {
             planet.simulation = this;
             console.log(planet);
@@ -26,11 +29,9 @@ export default class Simulation {
      * @param {number} planetsNumber
      * @param {{x: {min: number, max: number}, y: {min: number, max: number}}} positionRange
      * @param {{x: {min: number, max: number}, y: {min: number, max: number}}} velocityRange
-     * @param {{min: number, max: number}} radiusRange
-     * @param {{min: number, max: number}} densityRange
      * @returns {[Planet, ...]}
      */
-    getRandomPlanets(planetsNumber, positionRange, velocityRange, radiusRange, densityRange) {
+    getRandomPlanets(planetsNumber, positionRange, velocityRange) {
         let planets = [];
         while(planetsNumber--) {
             const props = {
@@ -42,10 +43,8 @@ export default class Simulation {
                     randomNumberBetween(velocityRange.x.min, velocityRange.x.max),
                     randomNumberBetween(velocityRange.y.min, velocityRange.y.max)
                 ),
-                radius: randomNumberBetween(radiusRange.min, radiusRange.max),
-                density: randomNumberBetween(densityRange.min, densityRange.max)
             };
-            planets.push(new Planet(props.position, props.velocity, props.radius));
+            planets.push(new Planet(props.position, props.velocity));
         }
         return planets;
     }
@@ -54,6 +53,9 @@ export default class Simulation {
      * Atualiza todos os planetas
      */
     update(timeDifference) {
+        if (this.paused) {
+            return;
+        }
         this.planets.forEach((planet) => planet.update(timeDifference));
     }
     /**
@@ -62,5 +64,30 @@ export default class Simulation {
      */
     render(ctx) {
         this.planets.forEach((planet) => planet.render(ctx));
+        if (this.paused && this.information) {
+            this.information.renderInformation();
+            this.information = null;
+        }
+    }
+
+    /**
+     * Procura na simulação o planeta clicado
+     * @param position
+     * @param zoom
+     */
+    checkPlanetClick(position, zoom) {
+        this.information = this.planets.find(({position: p, radius}) => this.isInsidePlanet(position, p, radius, zoom));
+    }
+
+    /**
+     * Verifica se o click foi dentro do planeta
+     * @param {Vector} positionA
+     * @param {Vector} planetPosition
+     * @param {number} radius
+     * @param {number} zoom
+     * @returns {boolean}
+     */
+    isInsidePlanet(positionA, planetPosition, radius, zoom) {
+        return positionA.copy().sub(planetPosition).magnitude() <= radius * zoom;
     }
 }
