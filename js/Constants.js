@@ -12,14 +12,14 @@ const createRange = (min, max) => ({min, max});
  */
 export const canvas = {
     backgroundColor: '#000',
-    initialZoom: 0.1,
+    initialZoom: 0.05,
 };
 /**
  * Diferença de tempo, pra compensar a velocidade de calculo
  * Quanto mais próximo de 1 mais rápido a simulação roda
  * @type {number}
  */
-export const timeDifference = 1;
+export const timeDifference = 0.01;
 /**
  * Valor da constante gravitacional
  * @type {number}
@@ -28,14 +28,16 @@ export const gravitationConstant = 6.67e-11 * 10e10;
 
 export const compositionGiveawayFactor = 0.3;
 
-export const existingRadiusMin = 10;
+export const atomicRadiusScale = 10;
+
+export const existingRadiusMin = 10 / atomicRadiusScale;
 
 /**
  * Propriedades de intervalos para criação de estado inicial de simulação aleatória
- * @type {{densityRange: {min: number, max: number}, radiusRange: {min: number, max: number}, planetsNumber: number, positionRange: {x: {min: number, max: number}, y: {min: number, max: number}}, velocityRange: {x: {min: number, max: number}, y: {min: number, max: number}}}}
+ * @type {{planetsNumber: number, positionRange: {x: {min: number, max: number}, y: {min: number, max: number}}, maxAtomQuantity: number, velocityRange: {x: {min: number, max: number}, y: {min: number, max: number}}}}
  */
 export const ranges = {
-    planetsNumber: 2,
+    planetsNumber: 200,
     positionRange: {
         x: createRange(-1000, 5000),
         y: createRange(-1000, 5000),
@@ -44,4 +46,5 @@ export const ranges = {
         x: createRange(0, 0),
         y: createRange(0, 0),
     },
+    maxAtomQuantity: 4,
 };

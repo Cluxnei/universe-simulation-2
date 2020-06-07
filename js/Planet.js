@@ -6,17 +6,18 @@ import {compositionGiveawayFactor, existingRadiusMin} from './Constants.js';
 export default class Planet {
     /**
      * Constroi o planeta
-     * @param position
-     * @param velocity
+     * @param {Vector} position
+     * @param {Vector} velocity
+     * @param {Composition} composition
      */
-    constructor(position = new Vector, velocity = new Vector) {
+    constructor(position = new Vector, velocity = new Vector, composition = new Composition) {
         // Propriedades vetoriais
         this.position = position;
         this.velocity = velocity;
         this.acceleration = new Vector;
         this.forces = new Vector;
         // Propriedades escalares
-        this.composition = new Composition;
+        this.composition = composition;
         this.radius = this.composition.radius;
         this.mass = this.composition.mass;
         this.color = this.composition.color;
@@ -50,6 +51,11 @@ export default class Planet {
         return this.simulation.planets.find((planet) => this.collidingWith(planet));
     }
 
+    /**
+     *  Retorna o se o planeta colide com outro
+     * @param {Planet} planet
+     * @returns {boolean}
+     */
     collidingWith(planet){
         if(planet === this || planet.mass < this.mass || this.removed) {
             return false;
@@ -106,6 +112,10 @@ export default class Planet {
         ctx.fillStyle = this.color;
         ctx.fill();
     }
+
+    /**
+     * Mostra uma modal com as informações do planeta
+     */
     renderInformation() {
         if (!swal.getState().isOpen) {
             swal({

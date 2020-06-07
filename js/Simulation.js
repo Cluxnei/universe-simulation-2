@@ -2,6 +2,7 @@ import Vector from './Vector.js';
 import Planet from './Planet.js';
 import {ranges} from './Constants.js';
 import {randomNumberBetween} from './Physics.js';
+import Composition from './Composition.js';
 
 const {planetsNumber, positionRange, velocityRange} = ranges;
 
@@ -42,8 +43,9 @@ export default class Simulation {
                     randomNumberBetween(velocityRange.x.min, velocityRange.x.max),
                     randomNumberBetween(velocityRange.y.min, velocityRange.y.max)
                 ),
+                composition: Composition.getRandom(),
             };
-            planets.push(new Planet(props.position, props.velocity));
+            planets.push(new Planet(props.position, props.velocity, props.composition));
         }
         return planets;
     }

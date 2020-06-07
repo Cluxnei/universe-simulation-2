@@ -1,8 +1,6 @@
 import {initCanvas, updateCanvas} from './Canvas.js';
 import {timeDifference} from './Constants.js';
 import Simulation from './Simulation.js';
-import Planet from './Planet.js';
-import Vector from './Vector.js';
 
 let paused = false;
 
@@ -41,10 +39,7 @@ const loop = (canvas, ctx, simulation) => {
 const startSimulation = (realTime = true) => {
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
-    const simulation = new Simulation([
-        new Planet(),
-        new Planet(new Vector(1900, -2300))
-    ], realTime);
+    const simulation = new Simulation([], realTime);
     removeMenu();
     showPauseButton();
     initCanvas(canvas, simulation);

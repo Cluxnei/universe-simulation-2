@@ -1,6 +1,10 @@
 import Element from './Element.js';
 import Atom from './Atom.js';
 import {colorMixer} from './Physics.js';
+import {randomNumberBetween} from './Physics.js';
+import {ranges} from './Constants.js';
+
+const {maxAtomQuantity} = ranges;
 
 export default class Composition {
     constructor(elements = []) {
@@ -19,6 +23,24 @@ export default class Composition {
         this.color = this.computeColor();
         this.mass = this.computeMass();
         this.radius = this.computeRadius();
+    }
+
+    /**
+     * Cria uma composição aleatória
+     * @returns {Composition}
+     */
+    static getRandom() {
+        const atoms = new Composition().atoms;
+        let amount = Math.ceil(randomNumberBetween(0, maxAtomQuantity));
+        let composition = [];
+        let quantityOfAtomsUsed = 0;
+        while (quantityOfAtomsUsed < amount) {
+            const atom = atoms[Math.floor(randomNumberBetween(0, atoms.length - 1))];
+            const quantity = Math.ceil(randomNumberBetween(1, amount - quantityOfAtomsUsed));
+            composition.push(new Element(atom, quantity));
+            quantityOfAtomsUsed += quantity;
+        }
+        return new Composition(composition);
     }
 
     /**
@@ -55,7 +77,7 @@ export default class Composition {
      * @returns {Element[]}
      */
     getInitialElements() {
-        return [new Element(this.atoms[11], 10)];
+        return [new Element(this.atoms[0], 1)];
     }
 
     /**

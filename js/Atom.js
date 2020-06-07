@@ -1,3 +1,5 @@
+import {atomicRadiusScale} from './Constants.js';
+
 export default class Atom {
     constructor(name, color, number, symbol, relativeMass, radius) {
         this.name = name;
@@ -5,7 +7,7 @@ export default class Atom {
         this.number = number;
         this.symbol = symbol;
         this.relativeMass = relativeMass;
-        this.radius = radius;
+        this.radius = radius / atomicRadiusScale;
     }
     toString() {
         return `${this.name} (${this.symbol})`;
