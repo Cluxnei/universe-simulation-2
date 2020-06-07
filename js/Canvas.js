@@ -3,7 +3,9 @@ import {canvas} from './Constants.js';
 
 const {backgroundColor, initialZoom} = canvas;
 
-const getMousePos = (canvas, event) => {
+// simulation.checkPlanetClick(getMousePos(c, evt), zoom);
+
+export const getMousePos = (canvas, event) => {
     const rect = canvas.getBoundingClientRect();
     const [w, h] = [canvas.clientWidth / 2, canvas.clientHeight / 2];
     return new Vector(event.clientX - rect.left - w - canvas.positionX, event.clientY - rect.top - h - canvas.positionY);
@@ -12,10 +14,9 @@ const getMousePos = (canvas, event) => {
 /**
  * Inicia o canvas, com algumas funções úteis
  * @param {HTMLElement|HTMLCanvasElement} canvas
- * @param {Simulation} simulation Simulação
  * @returns {HTMLElement|HTMLCanvasElement}
  */
-export const initCanvas = (canvas, simulation) => {
+export const initCanvas = (canvas) => {
     canvas.style.display = '';
     canvas.zoom = initialZoom || 1;
     canvas.positionX = 0;
@@ -41,7 +42,6 @@ export const initCanvas = (canvas, simulation) => {
     canvas.addEventListener('wheel', (evt) => {
         canvas.zoom -= evt.deltaY / 1000 * canvas.zoom;
     });
-    canvas.addEventListener('click', (evt) => simulation.checkPlanetClick(getMousePos(canvas, evt), canvas.zoom));
     resizeCanvas();
     return canvas;
 };

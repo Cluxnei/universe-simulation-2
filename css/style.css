@@ -7,6 +7,10 @@
 body {
     background-color: black;
     font-family: 'Fira Code', monospace;
+    background-image: url("../img/background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .swal-modal {
@@ -59,14 +63,15 @@ body {
 .choose-mode {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    flex: 0.2;
+    justify-content: center;
+    height: 400px;
     align-items: center;
 }
 .choose-mode h3 {
     color: white;
     font-size: 2rem;
     font-weight: 400;
+    max-width: 80%;
 }
 
 .choose-mode button {
@@ -77,11 +82,27 @@ body {
     padding: 10px 15px;
     border: none;
     outline: none;
+    margin: 20px 0;
     transition: all 500ms ease-in-out;
     font-family: 'Fira Code', monospace;
+    max-width: 90%;
 }
 
 .choose-mode button:hover {
     transform: scale(1.05);
     padding: 15px 5px;
+}
+
+@media only screen and (max-width: 882px) {
+    .choose-mode button {
+        font-size: 1.2rem;
+    }
+    .title {
+        text-align: center;
+        font-size: 3rem;
+    }
+    .choose-mode h3 {
+        margin-top: 30px;
+        font-size: 1.4rem;
+    }
 }

@@ -26,7 +26,7 @@ const resumeSimulation = () => {
  * @param {Simulation} simulation
  */
 const loop = (canvas, ctx, simulation) => {
-    updateCanvas(canvas);
+    updateCanvas(canvas, simulation);
     simulation.paused = paused;
     simulation.update(timeDifference);
     simulation.render(ctx);
