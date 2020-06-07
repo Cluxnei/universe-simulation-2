@@ -1,15 +1,15 @@
 import Vector from './Vector.js';
 import Composition from './Composition.js';
 import {newtonGravitationLaw} from './Physics.js';
+import {compositionGiveawayFactor, existingRadiusMin} from './Constants.js';
 
 export default class Planet {
     /**
      * Constroi o planeta
      * @param position
      * @param velocity
-     * @param radius
      */
-    constructor(position = new Vector, velocity = new Vector, radius = 1) {
+    constructor(position = new Vector, velocity = new Vector) {
         // Propriedades vetoriais
         this.position = position;
         this.velocity = velocity;
@@ -20,6 +20,7 @@ export default class Planet {
         this.radius = this.composition.radius;
         this.mass = this.composition.mass;
         this.color = this.composition.color;
+        this.removed = false;
         this.simulation = null;
     }
 
@@ -28,6 +29,14 @@ export default class Planet {
      * @param {number} timeDifference
      */
     update(timeDifference) {
+        let collidingPlanet = this.collidingPlanet();
+        if(collidingPlanet){
+            this.mergeWith(collidingPlanet, timeDifference);
+        }
+        if (this.composition.elements.length === 0) {
+            this.removed = true;
+            return this.simulation.removePlanet(this);
+        }
         this.composition.update();
         this.radius = this.composition.radius;
         this.mass = this.composition.mass;
@@ -36,6 +45,31 @@ export default class Planet {
         this.acceleration = this.forces.copy().scale(1 / this.mass);
         this.velocity.add(this.acceleration.copy().scale(timeDifference));
         this.position.add(this.velocity.copy().scale(timeDifference));
+    }
+    collidingPlanet(){
+        return this.simulation.planets.find((planet) => this.collidingWith(planet));
+    }
+
+    collidingWith(planet){
+        if(planet === this || planet.mass < this.mass || this.removed) {
+            return false;
+        }
+        const distanceScalar = planet.position.copy().sub(this.position).magnitude();
+        return distanceScalar < planet.radius + this.radius;
+    }
+
+    /**
+     * Faz a junção das composições dos planetas que entraram em colisão
+     * @param {Planet} planet
+     * @param {number} timeDifference
+     */
+    mergeWith(planet, timeDifference) {
+        let giveCompositionPercent = compositionGiveawayFactor * timeDifference;
+        if (this.radius < existingRadiusMin) {
+            giveCompositionPercent = 1;
+        }
+        planet.composition.upgrade(this.composition, giveCompositionPercent);
+        this.composition.downgrade(giveCompositionPercent);
     }
 
     /**

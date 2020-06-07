@@ -55,7 +55,7 @@ export default class Composition {
      * @returns {Element[]}
      */
     getInitialElements() {
-        return [new Element(this.atoms[0], 1)];
+        return [new Element(this.atoms[11], 10)];
     }
 
     /**
@@ -79,6 +79,61 @@ export default class Composition {
             colorMixer(color, c, 1 - quantity / this.quantity)
         );
         return this.elements.reduce(mixColors, firstColor);
+    }
+
+    /**
+     * Adiciona um certa porcentagem de uma composição dada ao planeta
+     * @param {Composition} composition
+     * @param {number} percent entre 0 e 1
+     */
+    upgrade(composition, percent) {
+        let numberOfElementsToGive = Math.ceil(composition.quantity * percent);
+        if (numberOfElementsToGive > composition.quantity) {
+            numberOfElementsToGive = composition.quantity;
+        }
+        while (numberOfElementsToGive > 0) {
+            for (let k = composition.elements.length - 1; k >= 0; k--) {
+                const giveElementSymbol = composition.elements[k].atom.symbol;
+                let quantityToGive = numberOfElementsToGive;
+                if (quantityToGive > composition.elements[k].quantity) {
+                    quantityToGive = composition.elements[k].quantity;
+                }
+                const indexOfElement = this.elements.findIndex(({atom: {symbol}}) => symbol === giveElementSymbol);
+                if (indexOfElement === -1) {
+                    this.elements.push(new Element(composition.elements[k].atom, quantityToGive));
+                    numberOfElementsToGive -= quantityToGive;
+                    continue;
+                }
+                this.elements[indexOfElement].quantity += quantityToGive;
+                numberOfElementsToGive -= quantityToGive;
+            }
+        }
+    }
+
+    /**
+     * Remove uma porcentagem da composição
+     * @param {number} percent
+     */
+    downgrade(percent) {
+        let numberOfElementsToDowngrade = Math.ceil(this.quantity * percent);
+        while (numberOfElementsToDowngrade > 0) {
+            for (let k = this.elements.length - 1; k >= 0; k--) {
+                let downgradeQuantity = numberOfElementsToDowngrade;
+                if (downgradeQuantity > this.elements[k].quantity) {
+                    downgradeQuantity = this.elements[k].quantity;
+                }
+                this.elements[k].quantity -= downgradeQuantity;
+                numberOfElementsToDowngrade -= downgradeQuantity;
+            }
+        }
+        this.removeEmptyElements();
+    }
+
+    /**
+     * Remove os elementos zerados
+     */
+    removeEmptyElements() {
+        this.elements = this.elements.filter(({quantity}) => quantity > 0);
     }
 
     /**

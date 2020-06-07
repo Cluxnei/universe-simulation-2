@@ -20,7 +20,6 @@ export default class Simulation {
         this.information = null;
         this.planets.forEach((planet) => {
             planet.simulation = this;
-            console.log(planet);
         });
     }
 
@@ -89,5 +88,13 @@ export default class Simulation {
      */
     isInsidePlanet(positionA, planetPosition, radius, zoom) {
         return positionA.copy().sub(planetPosition).magnitude() <= radius * zoom;
+    }
+
+    /**
+     * Remove um planeta da simulação
+     * @param planet
+     */
+    removePlanet(planet) {
+        this.planets = this.planets.filter((p) => p !== planet);
     }
 }
