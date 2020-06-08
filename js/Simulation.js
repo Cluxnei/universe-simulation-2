@@ -20,6 +20,7 @@ export default class Simulation {
         this.information = null;
         this.planets.forEach((planet) => {
             planet.simulation = this;
+            console.log(planet);
         });
     }
 
@@ -65,17 +66,6 @@ export default class Simulation {
             return;
         }
         this.planets.forEach((planet) => planet.update(timeDifference));
-    }
-    /**
-     * Renderiza todos os planetas
-     * @param {CanvasRenderingContext2D} ctx
-     */
-    render(ctx) {
-        this.planets.forEach((planet) => planet.render(ctx));
-        if (this.paused && this.information) {
-            this.information.renderInformation();
-            this.information = null;
-        }
     }
 
     /**

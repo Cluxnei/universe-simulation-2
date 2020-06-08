@@ -12,7 +12,7 @@ const createRange = (min, max) => ({min, max});
  */
 export const canvas = {
     backgroundColor: '#000',
-    initialZoom: 0.9,
+    initialZoom: 1,
 };
 /**
  * Diferença de tempo, pra compensar a velocidade de calculo
@@ -37,10 +37,10 @@ export const existingRadiusMin = 10 / atomicRadiusScale;
  * @type {{planetsNumber: number, positionRange: {x: {min: number, max: number}, y: {min: number, max: number}}, maxAtomQuantity: number, velocityRange: {x: {min: number, max: number}, y: {min: number, max: number}}}}
  */
 export const ranges = {
-    planetsNumber: 3,
+    planetsNumber: 20,
     positionRange: {
-        x: createRange(-1000, 1000),
-        y: createRange(-500, 500),
+        x: createRange(0, 100),
+        y: createRange(0, 100),
     },
     velocityRange: {
         x: createRange(0, 0),

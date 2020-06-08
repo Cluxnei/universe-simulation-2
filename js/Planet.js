@@ -23,6 +23,9 @@ export default class Planet {
         this.color = this.composition.color;
         this.removed = false;
         this.simulation = null;
+        this.geometry = new THREE.SphereGeometry(this.radius, 32, 32);
+        this.material = new THREE.MeshBasicMaterial({color: this.color});
+        this.sphere = new THREE.Mesh(this.geometry, this.material);
     }
 
     /**
@@ -46,6 +49,8 @@ export default class Planet {
         this.acceleration = this.forces.copy().scale(1 / this.mass);
         this.velocity.add(this.acceleration.copy().scale(timeDifference));
         this.position.add(this.velocity.copy().scale(timeDifference));
+        this.sphere.geometry.set = this.radius;
+        this.sphere.material.color.set(this.color);
     }
     collidingPlanet(){
         return this.simulation.planets.find((planet) => this.collidingWith(planet));
