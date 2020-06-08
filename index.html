@@ -18,6 +18,7 @@
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="img/favicon.png" type="image/png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" defer></script>
+    <script src="js/libs/threee.js" defer></script>
     <script src="js/Main.js" defer type="module"></script>
 </head>
 <body>
@@ -29,6 +30,17 @@
             <h3>Choose simulation mode</h3>
             <button id="real-time-mode">Live - Simulation is computed and rendered in real-time</button>
             <button id="pre-computed-mode">Pre-computed - Simulation is calculated for a while and after shown</button>
+        </div>
+        <div id="pre-computed-timer" style="display: none;">
+            <div>
+                <i class="fa fa-3x fa-spinner"></i>
+                computing...
+            </div>
+            <div id="pre-computed-time-watcher"></div>
+            <button id="pre-computed-stop-button">
+                <i class="fa fa-2x fa-stop-circle"></i>
+                stop computing
+            </button>
         </div>
     </div>
 </body>

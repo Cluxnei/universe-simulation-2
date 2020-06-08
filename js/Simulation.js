@@ -10,9 +10,8 @@ export default class Simulation {
     /**
      * Construtor da simulação
      * @param {array} planets Planetas iniciais
-     * @param {boolean} realTime Modo realtime
      */
-    constructor(planets = [], realTime = true) {
+    constructor(planets = []) {
         this.planets = planets;
         if (this.planets.length === 0) {
             this.planets = this.getRandomPlanets(planetsNumber, positionRange, velocityRange);
@@ -22,6 +21,14 @@ export default class Simulation {
         this.planets.forEach((planet) => {
             planet.simulation = this;
         });
+    }
+
+    /**
+     * Copia a simulação
+     * @returns {Simulation}
+     */
+    copy() {
+        return new Simulation(this.planets);
     }
 
     /**

@@ -37,7 +37,7 @@ export const existingRadiusMin = 10 / atomicRadiusScale;
  * @type {{planetsNumber: number, positionRange: {x: {min: number, max: number}, y: {min: number, max: number}}, maxAtomQuantity: number, velocityRange: {x: {min: number, max: number}, y: {min: number, max: number}}}}
  */
 export const ranges = {
-    planetsNumber: 30,
+    planetsNumber: 3,
     positionRange: {
         x: createRange(-1000, 1000),
         y: createRange(-500, 500),
