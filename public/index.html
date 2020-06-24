@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Universe Simulation</title>
+    <meta name="robots" content="index,follow">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="content-language" content="pt-br, en-US" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="author" content="Kelvin Cluxnei">
+    <meta name="description" content="A simulation of the universe, created from the atomic level to the planetary scale.">
+    <meta name="keywords" content="simulation, simulation of universe, universe, computational simulation, kelvin cluxnei, Kelvin Cluxnei, Simulação do Universo, simulação do universo, simulação, simulação computacional, simulação computacional, programação, programar uma simulação do universo, simulação do universo programada, programando uma simulação, simular com js, javascript, big bang js, programando o big bang, bigbang, programando o bigbang">
+    <meta name="copyright" content="© 2020 Kelvin Cluxnei" />
+    <meta name="rating" content="general" />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="shortcut icon" href="public/img/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="public/img/favicon.png" type="image/png">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" defer></script>
+    <script src="public/js/libs/threee.js" defer></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="public/js/Main.js" defer type="module"></script>
+</head>
+<body>
+    <button id="pause-button" style="display: none;"><i class="fa fa-2x fa-pause"></i></button>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <div class="main">
+        <h2 class="title">Universe simulation</h2>
+        <div class="choose-mode">
+            <h3>Choose simulation rules</h3>
+            <button id="start">start</button>
+        </div>
+    </div>
+</body>
+</html>
